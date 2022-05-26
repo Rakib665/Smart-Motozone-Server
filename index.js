@@ -20,6 +20,8 @@ async function run() {
     await client.connect()
 
     const partsCollection = client.db('motozone-parts').collection('parts')
+    const purchaseCollection = client.db('motozone-parts').collection('purchase')
+
     app.get('/parts', async (req, res) => {
       const query = {}
       const allParts = await partsCollection.find(query).toArray()
@@ -31,6 +33,12 @@ async function run() {
       const query = { _id: ObjectId(id) }
       const item = await partsCollection.findOne(query)
       res.send(item)
+    })
+
+    app.post('/purchase', async (req,res)=>{
+      const purchase = req.body;
+      const result = purchaseCollection.insertOne(purchase)
+      res.send(result)
     })
 
   }
