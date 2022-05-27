@@ -40,6 +40,12 @@ async function run() {
       const result = purchaseCollection.insertOne(purchase)
       res.send(result)
     })
+    app.get('/purchase', async(req,res)=>{
+      const email = req.query.email;
+      const query = {userEmail: email}
+      const result = await purchaseCollection.find(query).toArray()
+      res.send(result)
+    })
 
   }
   finally {
