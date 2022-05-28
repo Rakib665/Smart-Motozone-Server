@@ -39,6 +39,7 @@ async function run() {
     const partsCollection = client.db('motozone-parts').collection('parts')
     const purchaseCollection = client.db('motozone-parts').collection('purchase')
     const userCollection = client.db('motozone-parts').collection('users')
+    const reviewCollection = client.db('motozone-parts').collection('reviews')
 
 
     app.put('/user/:email', async(req,res)=>{
@@ -79,6 +80,18 @@ async function run() {
       const addItem = req.body;
       const newItem = partsCollection.insertOne(addItem)
       res.send(newItem)
+    })
+
+    app.post('/review', async (req,res)=>{
+      const addReview = req.body;
+      const newReview = reviewCollection.insertOne(addReview)
+      res.send(newReview)
+    })
+    
+    app.get('/reviews', async(req,res)=>{
+      const allReview = await reviewCollection.find().toArray()
+      // console.log(allReview)
+      res.send(allReview)
     })
 
     app.get('/parts/:id', async (req, res) => {
