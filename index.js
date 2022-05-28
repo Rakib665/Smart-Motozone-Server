@@ -84,6 +84,13 @@ async function run() {
       res.send(allParts)
     })
 
+    app.delete('/part/:id', async (req,res)=>{
+      const id = req.params.id;
+      const filter = {_id: ObjectId(id)}
+      const result = await partsCollection.deleteOne(filter)
+      res.send(result)
+    })
+
     app.post('/parts', async (req,res)=>{
       const addItem = req.body;
       const newItem = partsCollection.insertOne(addItem)
