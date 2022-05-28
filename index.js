@@ -75,6 +75,12 @@ async function run() {
       res.send(allParts)
     })
 
+    app.post('/parts', async (req,res)=>{
+      const addItem = req.body;
+      const newItem = partsCollection.insertOne(addItem)
+      res.send(newItem)
+    })
+
     app.get('/parts/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) }
