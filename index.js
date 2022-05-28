@@ -7,7 +7,7 @@ require('dotenv').config()
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const res = require('express/lib/response');
 
-
+// middleware
 
 app.use(express.json())
 app.use(cors())
