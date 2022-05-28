@@ -60,7 +60,7 @@ async function run() {
       res.send(users)
     })
 
-    app.put('/user/admin/:email',  async (req, res) => {
+    app.put('/user/admin/:email', verifyJWT,  async (req, res) => {
       const email = req.params.email
       const filter = {email: email}
       const updateDoc = {
@@ -70,6 +70,14 @@ async function run() {
       res.send(result)
 
     })
+
+    app.get('/admin/:email', async(req,res)=>{
+      const email = req.params.email;
+      const user = await userCollection.findOne({email: email});
+      const isAdmin = user.role === 'admin'
+      res.send({admin: isAdmin})
+    })
+
     app.get('/parts', async (req, res) => {
       const query = {}
       const allParts = await partsCollection.find(query).toArray()
