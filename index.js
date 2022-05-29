@@ -150,7 +150,7 @@ async function run() {
     })
     app.get('/purchase', async(req,res)=>{
       const email = req.query.email;
-      const decodedEmail = req.decoded.email;
+      // const decodedEmail = req.decoded.email;
       const query = {userEmail: email}
         const result = await purchaseCollection.find(query).toArray()
         return res.send(result)
