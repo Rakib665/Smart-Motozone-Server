@@ -10,7 +10,14 @@ const res = require('express/lib/response');
 // middleware
 
 app.use(express.json())
-app.use(cors())
+// app.use(cors())
+
+const corsConfig = {
+  origin: "https://new-motozone.web.app",
+  credentials: true,
+}
+app.use(cors(corsConfig))
+
 function verifyJWT(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
