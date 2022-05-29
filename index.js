@@ -114,7 +114,7 @@ async function run() {
 
     app.post('/parts', async (req,res)=>{
       const addItem = req.body;
-      const newItem = partsCollection.insertOne(addItem)
+      const newItem = await partsCollection.insertOne(addItem)
       res.send(newItem)
     })
 
@@ -126,7 +126,7 @@ async function run() {
 
     app.post('/setReview', async(req,res)=>{
       const addReview = req.body
-      const newReview = reviewCollection.insertOne(addReview)
+      const newReview = await reviewCollection.insertOne(addReview)
       res.send(newReview)
     })
 
