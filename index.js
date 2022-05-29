@@ -50,17 +50,30 @@ async function run() {
     const profileCollection = client.db('motozone-parts').collection('profiles')
 
 
+    // app.put('/user/:email', async(req,res)=>{
+    //   const email = req.params.email;
+    //   const user = req.body;
+    //   const filter = { email: email };
+    //   const options = { upsert: true };
+    //   const updateDoc = {
+    //     $set: user,
+    //   };
+    //   const result = await userCollection.updateOne(filter, updateDoc, options);
+    //   const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
+    //   res.send({ result, token });
+    // })
+
     app.put('/user/:email', async(req,res)=>{
       const email = req.params.email;
-      const user = req.body;
-      const filter = { email: email };
-      const options = { upsert: true };
+      const user = req.body
+      const filter = {email: email}
+      const options = {upsert: true}
       const updateDoc = {
-        $set: user,
+        $set: user
       };
-      const result = await userCollection.updateOne(filter, updateDoc, options);
-      const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
-      res.send({ result, token });
+      const result = await userCollection. updateOne(filter, updateDoc, options);
+      const token = jwt.sign({email: email}, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '2h'})
+      res.send({result, token})
     })
 
     app.get('/users', async(req,res)=>{
@@ -86,11 +99,6 @@ async function run() {
       res.send({admin: isAdmin})
     })
 
-    // app.get('/parts', async (req, res) => {
-    //   const query = {}
-    //   const allParts = await partsCollection.find(query).toArray()
-    //   res.send(allParts)
-    // })
 
     app.get('/parts', async(req,res)=>{
       const allParts = await partsCollection.find().toArray()
