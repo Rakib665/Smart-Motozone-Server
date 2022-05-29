@@ -72,8 +72,8 @@ async function run() {
         $set: user
       };
       const result = await userCollection. updateOne(filter, updateDoc, options);
-      const token = jwt.sign({email: email}, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '2h'})
-      res.send({result, token})
+      // const token = jwt.sign({email: email}, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '2h'})
+      res.send(result)
     })
 
     app.get('/users', async(req,res)=>{
@@ -81,7 +81,7 @@ async function run() {
       res.send(users)
     })
 
-    app.put('/user/admin/:email', verifyJWT,  async (req, res) => {
+    app.put('/user/admin/:email',   async (req, res) => {
       const email = req.params.email
       const filter = {email: email}
       const updateDoc = {
@@ -148,17 +148,20 @@ async function run() {
       const result = purchaseCollection.insertOne(purchase)
       res.send(result)
     })
-    app.get('/purchase',verifyJWT, async(req,res)=>{
+    app.get('/purchase', async(req,res)=>{
       const email = req.query.email;
       const decodedEmail = req.decoded.email;
-      if(email === decodedEmail){
-        const query = {userEmail: email}
+      const query = {userEmail: email}
         const result = await purchaseCollection.find(query).toArray()
         return res.send(result)
-      }
-      else{
-        res.status(403).send({message: 'forbidden access'})
-      }
+      // if(email === decodedEmail){
+      //   const query = {userEmail: email}
+      //   const result = await purchaseCollection.find(query).toArray()
+      //   return res.send(result)
+      // }
+      // else{
+      //   res.status(403).send({message: 'forbidden access'})
+      // }
      
     })
 
