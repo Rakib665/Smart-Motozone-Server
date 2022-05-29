@@ -118,8 +118,14 @@ async function run() {
       res.send(newItem)
     })
 
-    app.post('/review', async (req,res)=>{
-      const addReview = req.body;
+    // app.post('/review', async (req,res)=>{
+    //   const addReview = req.body;
+    //   const newReview = reviewCollection.insertOne(addReview)
+    //   res.send(newReview)
+    // })
+
+    app.post('/setReview', async(req,res)=>{
+      const addReview = req.body
       const newReview = reviewCollection.insertOne(addReview)
       res.send(newReview)
     })
