@@ -171,6 +171,11 @@ async function run() {
      
     })
 
+    app.get('/allOrder', async(req,res)=>{
+      const all = purchaseCollection.find().toArray()
+      res.send(all)
+    })
+
       app.delete('/purchase/:id', async(req,res)=>{
         const id = req.params.id;
         const query = {_id: ObjectId(id)}
