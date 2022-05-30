@@ -172,7 +172,7 @@ async function run() {
     })
 
     app.get('/allOrder', async(req,res)=>{
-      const all = purchaseCollection.find().toArray()
+      const all = await purchaseCollection.find().toArray()
       res.send(all)
     })
 
